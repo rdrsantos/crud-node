@@ -1,0 +1,45 @@
+<%- include ("../partials/header.ejs") %>
+<body>
+  <header class="header">
+    <h1>CRUD NODE</h1>
+  </header>
+  <div class="container">
+    <% if(users.length > 0) { %>
+    <a href="/users/add" class="btn">Adicionar</a>
+    <table class="user-table">
+      <thead>
+        <tr>
+          <td>NOME</td>
+          <td>EMAIL</td>
+          <td>TELEFONE</td>
+          <td>AÇÕES</td>
+        </tr>
+      </thead>
+      <tbody>
+        <% users.forEach(user => { %>
+          <tr>
+            <td><%= user.name %></td>
+            <td><%= user.email %></td>
+            <td><%= user.telephone %></td>
+            <td>
+              <form action="/users/edit">
+                <button class="btn btn-edit">Editar</button>
+              </form>
+              <form action="/users/delete">
+                <button class="btn btn-delete">Deletar</button>
+              </form>
+            </td>
+          </tr>
+        <% }) %>
+      </tbody>
+    </table>
+    <% } else {%>
+      <div class="no-data">
+        <h2>Nenhum usuario cadastrado</h2>
+        <p>Cadastre novos usuarios para aparecem aqui</p>
+        <a href="/users/add" class="btn">Adicionar novo usuario</a>
+      </div>
+    <% }%>
+  </div>
+</body>
+<%- include ("../partials/footer.ejs") %>

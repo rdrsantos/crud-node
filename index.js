@@ -2,6 +2,7 @@ const express = require("express");
 const app = express()
 const {connection} = require("./database/database")
 const User = require("./users/User")
+const router = require("./users/UserController")
 
 // data base
 connection.authenticate()
@@ -17,7 +18,9 @@ app.use(express.json())
 app.use(express.static("public"))
 
 app.get("/", (req, res) => {
-  res.render("index")
+  res.redirect("/users")
 })
+
+app.use("/", router)
 
 app.listen(8080)

@@ -1,0 +1,43 @@
+<%- include ("../partials/header.ejs")%>
+<link rel="stylesheet" href="/css/add-form.css">
+<body>
+  <div class="container">
+    <h2 class="form-title">Cadastro de usúario</h2>
+    <form action="/adduser" method="POST" onsubmit="verification(event, this)">
+      <label for="name">Nome</label>
+      <input type="text" name="name" id="name">
+      <label for="email">Email</label>
+      <input type="email" name="email" id="email">
+      <label for="telephone">Telefone</label>
+      <input type="text" name="telephone" id="telephone">
+
+      <div class="warning error">
+        <p>Verifique se os dados estão preenchidos corretamente!</p>
+      </div>
+      <div class="warning success">
+        <p>Usúario cadastrado com sucesso!</p>
+      </div>
+      <button class="btn">Cadastrar</button>
+    </form>
+  </div>
+  <script>
+    function verification(event, target){
+      const name = document.getElementById("name").value
+      const email = document.getElementById("email").value
+      const telephone = document.getElementById("telephone").value
+      const error = document.querySelector(".error")
+      const success = document.querySelector(".success")
+      event.preventDefault()
+      if(name.length > 0 && email.length > 0 && telephone.length > 0){
+        success.classList.add("active")
+        error.classList.remove("active")
+        setTimeout(() => {
+          target.submit()
+        }, 2000)
+      } else {
+        error.classList.add("active")
+      }
+    }
+  </script>
+</body>
+<%- include ("../partials/footer.ejs")%>
