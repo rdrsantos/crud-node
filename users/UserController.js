@@ -10,11 +10,13 @@ router.get("/users", (req, res) => {
   })
 })
 
+// to add user
+
 router.get("/users/add", (req, res) => {
   res.render("user/add")
 })
 
-router.post("/adduser", (req, res) => {
+router.post("/users/adduser", (req, res) => {
   const name = req.body.name
   const email = req.body.email
   const telephone = req.body.telephone
@@ -30,5 +32,42 @@ router.post("/adduser", (req, res) => {
     res.redirect("/users/add")
   }
 })
+
+// to update user
+router.get("/users/update/:id", (req, res) => {
+  const id = req.params.id
+  User.findOne({where: {id}}).then(user => {
+    res.render("user/update", {
+      user
+    })
+  })
+})
+
+router.post("/users/updateuser/:id", (req, res) => {
+  const id = req.params.id
+  const name = req.body.name
+  const email = req.body.email
+  const telephone = req.body.telephone
+  User.update({
+    name,
+    email,
+    telephone
+  }, 
+  {
+    where: {id}
+  }
+  ).then(() => {
+    res.redirect("/")
+  })
+})
+
+// to delete user
+router.post("/users/delete", (req, res) => {
+  const id = req.body.id
+  User.destroy({where: {id}}).then(() => {
+    res.redirect("/")
+  })
+}) 
+
 
 module.exports = router;

@@ -12,7 +12,7 @@
           <td>NOME</td>
           <td>EMAIL</td>
           <td>TELEFONE</td>
-          <td>AÇÕES</td>
+          <td style="text-align: center;">AÇÕES</td>
         </tr>
       </thead>
       <tbody>
@@ -21,12 +21,11 @@
             <td><%= user.name %></td>
             <td><%= user.email %></td>
             <td><%= user.telephone %></td>
-            <td>
-              <form action="/users/edit">
-                <button class="btn btn-edit">Editar</button>
-              </form>
-              <form action="/users/delete">
-                <button class="btn btn-delete">Deletar</button>
+            <td class="actions">
+              <a href="/users/update/<%= user.id %>" class="btn-edit">Editar</a>
+              <form action="/users/delete" method="POST" style="display: inline;" onsubmit="verification(event, this)">
+                <input type="hidden" name="id" value="<%= user.id %>">
+                <button class="btn-delete">Deletar</button>
               </form>
             </td>
           </tr>
@@ -41,5 +40,14 @@
       </div>
     <% }%>
   </div>
+  <script>
+    function verification(event, target){
+      event.preventDefault()
+      let decision = confirm("desejar deletar este usúario?")
+      if(decision) {
+        target.submit()
+      } 
+    }
+  </script>
 </body>
 <%- include ("../partials/footer.ejs") %>
